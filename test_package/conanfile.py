@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from conans import ConanFile, CMake
+from conans import ConanFile, CMake, tools
 
 class GoogleBenchmarkTestConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
@@ -37,5 +37,7 @@ class GoogleBenchmarkTestConan(ConanFile):
         self.copy('*.so*', dst='bin', src='lib')
 
     def test(self):
+        if tools.cross_building(self.settings):
+            return
         cmake = CMake(self)
         self.run("ctest -VV -C %s" % cmake.build_type)

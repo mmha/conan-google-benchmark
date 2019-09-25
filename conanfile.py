@@ -24,7 +24,7 @@ from conans import ConanFile, CMake, tools
 
 class GoogleBenchmarkConan(ConanFile):
     name = "google-benchmark"
-    version = "1.4.1"
+    version = "1.5.0"
     description = "A microbenchmark support library"
     homepage = "https://github.com/google/benchmark"
     license = "https://github.com/google/benchmark/blob/master/LICENSE"
@@ -32,13 +32,21 @@ class GoogleBenchmarkConan(ConanFile):
     exports = ["LICENSE.md"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
+
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
         "exceptions": [True, False],
         "lto": [True, False],
     }
-    default_options = ("shared=False", "fPIC=True", "exceptions=True", "lto=False")
+
+    default_options = {
+        "shared": False,
+        "fPIC": False,
+        "exceptions": True,
+        "lto": False,
+    }
+
     scm = {
         "type": "git",
         "url": "https://github.com/google/benchmark.git",
@@ -56,16 +64,19 @@ class GoogleBenchmarkConan(ConanFile):
 
     def source(self):
         tools.replace_in_file("CMakeLists.txt",
-                              "project (benchmark)",
-                              """project (benchmark)
+                              "project (benchmark CXX)",
+                              """project (benchmark CXX)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)""")
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.definitions["BENCHMARK_ENABLE_EXCEPTIONS"] = "ON" if self.options.exceptions else "OFF"
-        cmake.definitions["BENCHMARK_ENABLE_LTO"] = "ON" if self.options.lto else "OFF"
-        cmake.definitions["BENCHMARK_ENABLE_TESTING"] = "ON" if tools.get_env("CONAN_RUN_TESTS", False) else "OFF"
+        cmake.definitions.update({
+            "BENCHMARK_ENABLE_EXCEPTIONS": self.options.exceptions,
+            "BENCHMARK_ENABLE_LTO": self.options.lto,
+            "BENCHMARK_ENABLE_TESTING": tools.get_env("CONAN_RUN_TESTS", False),
+            "HAVE_STD_REGEX": True,
+        })
         cmake.configure()
         return cmake
 
@@ -76,7 +87,7 @@ conan_basic_setup(TARGETS)""")
             cmake.test()
 
     def package(self):
-        self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
+        self.copy("license*", dst="share/licenses/google-benchmark", ignore_case=True, keep_path=False)
         cmake = self._configure_cmake()
         cmake.install()
 

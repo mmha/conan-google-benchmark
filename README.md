@@ -1,31 +1,31 @@
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?maxAge=3600)](https://raw.githubusercontent.com/mpusz/conan-google-benchmark/master/LICENSE)
-[![Travis CI](https://img.shields.io/travis/mpusz/conan-google-benchmark/master.svg?label=Travis%20CI)](https://travis-ci.org/mpusz/conan-google-benchmark)
-[![AppVeyor](https://img.shields.io/appveyor/ci/mpusz/conan-google-benchmark/master.svg?label=AppVeyor)](https://ci.appveyor.com/project/mpusz/conan-google-benchmark)
-[![Download](https://api.bintray.com/packages/mpusz/conan-mpusz/google-benchmark%3Ampusz/images/download.svg)](https://bintray.com/mpusz/conan-mpusz/google-benchmark%3Ampusz/_latestVersion)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?maxAge=3600)](https://raw.githubusercontent.com/mmha/conan-google-benchmark/master/LICENSE)
+[![Travis CI](https://img.shields.io/travis/mmha/conan-google-benchmark/master.svg?label=Travis%20CI)](https://travis-ci.org/mmha/conan-google-benchmark)
+[![AppVeyor](https://img.shields.io/appveyor/ci/mmha/conan-google-benchmark/master.svg?label=AppVeyor)](https://ci.appveyor.com/project/mmha/conan-google-benchmark)
+[![Download](https://api.bintray.com/packages/mmha/public-conan/google-benchmark%3Ammha/images/download.svg)](https://bintray.com/mmha/public-conan/google-benchmark%3Ammha/_latestVersion)
 
 # conan-google-benchmark
 
-[conan-mpusz](https://bintray.com/mpusz/conan-mpusz) package for [Google Benchmark](https://github.com/google/benchmark) library.
+[Conan](https://bintray.com/mmha/public-conan) package for [Google Benchmark](https://github.com/google/benchmark) library.
 
-The package generated with this **conanfile** can be found at [conan-mpusz](https://bintray.com/mpusz/conan-mpusz/google-benchmark%3Ampusz).
+The package generated with this **conanfile** can be found at [mmha/public-conan](https://bintray.com/mmha/public-conan/google-benchmark%3Ammha).
 
 `conan` client can be downloaded from [Conan.io](https://conan.io).
 
 ## Reuse the package
 
-### Add conan-mpusz remote
+### Add public-conan remote
 
-To add [conan-mpusz](https://bintray.com/mpusz/conan-mpusz) remote to your
+To add [mmha/public-conan](https://bintray.com/mmha/public-conan) remote to your
 local `conan` instance run:
 
 ```bash
-conan remote add conan-mpusz https://api.bintray.com/conan/mpusz/conan-mpusz
+conan remote add mmha https://api.bintray.com/conan/mmha/public-conan
 ```
 
 ### Basic setup
 
 ```
-$ conan install google-benchmark/1.4.1@mpusz/stable --build=missing
+$ conan install google-benchmark/1.5.0@mmha/stable --build=missing
 ```
 
 ### Project setup
@@ -35,7 +35,7 @@ to add a `conanfile.txt`
 
 ```
 [requires]
-google-benchmark/1.4.1@mpusz/stable
+google-benchmark/1.5.0@mmha/stable
 
 [options]
 
@@ -46,7 +46,7 @@ cmake_paths
 or if you are using `conanfile.py` file add:
 
 ```python
-requires = "google-benchmark/1.4.1@mpusz/stable"
+requires = "google-benchmark/1.5.0@mmha/stable"
 ```
 
 Complete the installation of requirements for your project running:
@@ -72,5 +72,5 @@ $ conan create . <user>/<channel> <your_profile_and_settings>
 ## Upload package to server
 
 ```
-$ conan upload -r <remote-name> --all google-benchmark/1.4.1@<user>/<channel>
+$ conan upload -r <remote-name> --all google-benchmark/1.5.0@<user>/<channel>
 ```
