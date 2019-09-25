@@ -32,9 +32,8 @@ class GoogleBenchmarkTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.dll", dst="bin", src="bin")
-        self.copy("*.dylib*", dst="bin", src="lib")
-        self.copy('*.so*', dst='bin', src='lib')
+        self.copy("*.dll", "", "bin")
+        self.copy("*.dylib", "", "lib")
 
     def test(self):
         if tools.cross_building(self.settings):
